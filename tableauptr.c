@@ -20,13 +20,13 @@ int main(void)
     // remplissage tableau des entiers 
     tab_entier(tab_1, len_tab_int, 100, 0);
     disp_tab_int(tab_1, len_tab_int,"tableau des entiers"); // affichage du tableau remplit
-    traitement(tab_1); // ce qi nous est demandé de l'exercice
+    traitement(tab_1,len_tab_int); // ce qi nous est demandé de l'exercice
     disp_tab_int(tab_1, len_tab_int, "tableau des entiers"); // affichage du tableau altéré
 
     // remplissage tableau des floats
     tab_float( tab_2, len_tab_float, 100.0, 0.0);
     disp_tab_int(tab_2, len_tab_float, "tableau des floats"); // affichage du tableau remplit
-    traitement(tab_2); // ce qi nous est demandé de l'exercice
+    traitement(tab_2,len_tab_float); // ce qi nous est demandé de l'exercice
     disp_tab_int(tab_2, len_tab_float, "tableau des floats"); // affichage du tableau altéré
 }
 
@@ -87,7 +87,7 @@ void disp_tab_int(int *tableau, int len, char titre)
         int len : la taille du tableau passée en paramètres
         char titre : la titre qque l'on veut afficher sur la ligne au dessus des valeurs du tableau
     */
-    printf( " \n %c \n", titre )
+    printf( " \n %c \n", titre );
     for(int i=0; i< len; i++)
     {
         printf(" %i ", *(tableau+i));
@@ -101,7 +101,7 @@ void disp_tab_float(float *tableau, int len, char titre)
         int len : la taille du tableau passée en paramètres
         char titre : la titre qque l'on veut afficher sur la ligne au dessus des valeurs du tableau
     */
-    printf( " \n %c \n", titre )
+    printf( " \n %c \n", titre );
     for(int i=0; i< len; i++)
     {
         printf(" %f ", *(tableau+i));
