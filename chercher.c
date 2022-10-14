@@ -56,7 +56,7 @@ int main(void)
         }
         
         if(phrases[i][a] != phrase[a])
-        { print("les phrases sont differentes")}
+        { print("les phrases sont differentes");}
        
        
     }
