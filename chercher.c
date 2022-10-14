@@ -54,6 +54,10 @@ int main(void)
             }
             a++; // on teste le caractere suivant
         }
+        
+        if(phrases[i][a] != phrase[a])
+        { print("les phrases sont differentes")}
+       
        
     }
 
