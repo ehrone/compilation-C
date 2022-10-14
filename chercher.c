@@ -12,7 +12,7 @@ int compte( char *p);
 
 int main(void)
 {
-    int *tableau = crea_tab(5);
+    int *tableau = crea_tab();
 
     /*for(int i=0; i< taille; i++) // verification génération du tableau
     {
