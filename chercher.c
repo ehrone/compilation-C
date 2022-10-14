@@ -4,7 +4,7 @@
 
 int * crea_tab(void);
 void chercher( int *tableau, int terme);
-char * crea_tab_phrases();
+//char * crea_tab_phrases();
 //void cherche_phrase(char *tab, int taille_max_phrase, int nb_phrases, char *phrase);
 int compte( char *p);
 
@@ -28,16 +28,16 @@ int main(void)
 
 
     char phrases[10][256]={
-                            {"Phrase 1"},
-                            {"Phrase 2"},
-                            {"Phrase 3"},
-                            {"Phrase 4"},
-                            {"Phrase 5"},
-                            {"Phrase 6"},
-                            {"Phrase 7"},
-                            {"Phrase 8"},
-                            {"Phrase 9"},
-                            {"Phrase 10"}
+                            "Phrase 1",
+                            "Phrase 2",
+                            "Phrase 3",
+                            "Phrase 4",
+                            "Phrase 5",
+                            "Phrase 6",
+                            "Phrase 7",
+                            "Phrase 8",
+                            "Phrase 9",
+                            "Phrase 10"
 
                                         };
 
