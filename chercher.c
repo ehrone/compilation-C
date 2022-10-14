@@ -56,7 +56,10 @@ int main(void)
         }
         
         if(phrases[i][a] != phrase[a])
-        { printf("les phrases sont differentes");}
+        { printf("les phrases sont differentes");
+         i=10;
+        
+        }
        
        
     }
