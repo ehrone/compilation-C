@@ -48,7 +48,7 @@ void tab_entier( int *tableau, int len_tab, int max, int min)
 
 }
 
-void tab_float( int *tableau, int len_tab, int max, int min)
+void tab_float( float *tableau, int len_tab, int max, int min)
 {
     /* fonction qui remplit unb tableau de float avec des valuers aléatoires entre 0 et la limite en paramètre
         int * tableau : l'adresse de la première case du tableau 
