@@ -57,10 +57,15 @@ int main(void)
                 }
             }
         }
-        if (counter == len_recherche)
+        elif (counter == len_recherche)
         {
             printf("La phrase est dans le tableau");
             i = 10;
+        }
+        else
+        {
+            
+            printf("La phrase n'est pas dans le tableau");
         }
     }
 
