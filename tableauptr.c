@@ -59,7 +59,7 @@ void tab_float( float *tableau, int len_tab, int max, int min)
     for(int i=0; i < len_tab; i++)
     {
         *(tableau +i ) = min + (rand() % (max-min)); //génération partie entière du nombre
-        *(tableau +i ) += rand() % 0.99; //génération d'après la virgule
+        *(tableau +i ) += rand() % 1; //génération d'après la virgule
 
     }
 
