@@ -111,7 +111,7 @@ char* crea_tab_phrases()
 
                                         };
 
-    return phrases;
+    return phrases[0];
 }
 
 /*
