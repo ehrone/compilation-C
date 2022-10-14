@@ -52,6 +52,7 @@ int main(void)
                 if(phrases[i][a] == phrase[a])
                 {
                     counter +=1;
+                    printf(" %s %s",phrases[i][a], phrase[a] );
                 }
             }
         }
