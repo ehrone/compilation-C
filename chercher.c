@@ -12,7 +12,7 @@ int compte( char *p);
 
 int main(void)
 {
-    //int *tableau = crea_tab(5);
+    int *tableau = crea_tab(5);
 
     /*for(int i=0; i< taille; i++) // verification génération du tableau
     {
@@ -20,15 +20,10 @@ int main(void)
     }*/
     
     //chercher(tableau, 77);
-    //char * tableau_c = crea_tab_phrases();
+
     char phrase[256] = "nope";
-    int run = 1;
-    int len_recherche = compte(phrase);
-    //cherche_phrase(tableau_c, compte(phrase), 10, phrase);
 
-
-    char phrases[10][256]={
-                            "Phrase 1",
+    char phrases[10][256]={ "Phrase 1",
                             "Phrase 2",
                             "Phrase 3",
                             "Phrase 4",
@@ -37,9 +32,7 @@ int main(void)
                             "Phrase 7",
                             "Phrase 8",
                             "Phrase 9",
-                            "Phrase 10"
-
-                                        };
+                            "Phrase 10"};
 
     for(int i=0; i< 10; i++)
     {
@@ -50,22 +43,15 @@ int main(void)
             if(phrase[a]=='\0')
             {
                 printf("La phrase est dans le tableau");
-                break;
+                return 0;
             }
             a++; // on teste le caractere suivant
         }
         
         if(phrases[i][a] != phrase[a])
         { printf("les phrases sont differentes");
-         i=10;
-        
-        }
-       
-       
+         return 0;}  
     }
-
-
-
 }
 
 
@@ -94,62 +80,6 @@ void chercher( int *tableau, int terme)
     }
     printf("\n Entier absent \n");
 }
-
-
-char* crea_tab_phrases()
-{
-    //printf("Vous devez entrer 10 pharases")
-    // On crée un tableau de la taille définie tout à l'heure
-    static char phrases[10][256]={
-                                            {"Phrase 1"},
-                                            {"Phrase 2"},
-                                            {"Phrase 3"},
-                                            {"Phrase 4"},
-                                            {"Phrase 5"},
-                                            {"Phrase 6"},
-                                            {"Phrase 7"},
-                                            {"Phrase 8"},
-                                            {"Phrase 9"},
-                                            {"Phrase 10"}
-
-                                        };
-
-    return phrases[0];
-}
-
-/*
-void cherche_phrase(char *tab, int taille_max_phrase, int nb_phrases, char *phrase)
-{
-   
-    int counter = 0;
-    int taille_recherche = compte(phrase);// taille de la str à chercher
-
-    for (int i=0; i< nb_phrases; i++)
-    {
-        printf("Phrase %i tableau\n", i);
-        for(int a=0; a< taille_recherche; a++)
-        {
-            printf("Tab : %s, phrase : %s \n", (tab+i*256+a), (phrase+a) );
-            if( (tab+i*256+a) == (phrase+a) )// on compare chaque caractere 
-            {
-                counter += 1;
-                printf("caractere %i sont les memes", a);
-            }
-        }
-
-    }
-
-    // on vérifit que tt les caracteres sont bien identiques
-    if(counter == taille_recherche)
-    { 
-        printf("\nLa phrase est bien comprise dans le tableau \n");
-    }
-    else
-    { 
-        printf("\nLa phrase n'est pas dans le tableau \n");
-    }
-
-}*/
 
 
 int compte( char *p)
