@@ -19,15 +19,15 @@ int main(void)
 
     // remplissage tableau des entiers 
     tab_entier(tab_1, len_tab_int, 100, 0);
-    disp_tab_int(tab_1, len_tab_int); // affichage du tableau remplit
+    disp_tab_int(tab_1, len_tab_int,"tableau des entiers"); // affichage du tableau remplit
     traitement(tab_1); // ce qi nous est demandé de l'exercice
-    disp_tab_int(tab_1, len_tab_int); // affichage du tableau altéré
+    disp_tab_int(tab_1, len_tab_int, "tableau des entiers"); // affichage du tableau altéré
 
     // remplissage tableau des floats
-    tab_float( tab_2, len_tab_float, 100, 0);
-    disp_tab_int(tab_2, len_tab_float); // affichage du tableau remplit
+    tab_float( tab_2, len_tab_float, 100.0, 0.0);
+    disp_tab_int(tab_2, len_tab_float, "tableau des floats"); // affichage du tableau remplit
     traitement(tab_2); // ce qi nous est demandé de l'exercice
-    disp_tab_int(tab_2, len_tab_float); // affichage du tableau altéré
+    disp_tab_int(tab_2, len_tab_float, "tableau des floats"); // affichage du tableau altéré
 }
 
 
@@ -90,7 +90,7 @@ void disp_tab_int(int *tableau, int len, char titre)
     printf( " \n %c \n", titre )
     for(int i=0; i< len; i++)
     {
-        printf(" %i ", *(tableau+i))
+        printf(" %i ", *(tableau+i));
     }
 }
 
@@ -104,6 +104,6 @@ void disp_tab_float(float *tableau, int len, char titre)
     printf( " \n %c \n", titre )
     for(int i=0; i< len; i++)
     {
-        printf(" %f ", *(tableau+i))
+        printf(" %f ", *(tableau+i));
     }
 }
