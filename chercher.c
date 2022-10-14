@@ -49,10 +49,11 @@ int main(void)
         {
             for(int a=0; a< len_recherche; a++)
             {
+                printf(" %c %c",phrases[i][a], phrase[a] );
                 if(phrases[i][a] == phrase[a])
                 {
                     counter +=1;
-                    printf(" %s %s",phrases[i][a], phrase[a] );
+                    printf(" %c %c",phrases[i][a], phrase[a] );
                 }
             }
         }
