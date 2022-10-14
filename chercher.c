@@ -43,30 +43,18 @@ int main(void)
 
     for(int i=0; i< 10; i++)
     {
-        int counter =0;
-        printf(" %c",phrases[i][len_recherche]);
-        if (phrases[i][len_recherche] == '\0' ) // si les 2 chaines se finissent au même indice on testes termes à termes ça vaut le coup de tester le reste
+        int a =0;
+
+        while( phrases[i][a] == phrase[a] ) // si les 2 chaines se finissent au même indice on testes termes à termes ça vaut le coup de tester le reste
         {
-            for(int a=0; a< len_recherche; a++)
+            if(phrase[a]=='\0')
             {
-                printf(" %c %c",phrases[i][a], phrase[a] );
-                if(phrases[i][a] == phrase[a])
-                {
-                    counter +=1;
-                    printf(" %c %c",phrases[i][a], phrase[a] );
-                }
+                printf("La phrase est dans le tableau");
+                break;
             }
+            a++; // on teste le caractere suivant
         }
-        else if (counter == len_recherche)
-        {
-            printf("La phrase est dans le tableau");
-            i = 10;
-        }
-        else
-        {
-            
-            printf("La phrase n'est pas dans le tableau");
-        }
+       
     }
 
 
