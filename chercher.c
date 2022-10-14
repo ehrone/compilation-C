@@ -37,7 +37,7 @@ int main(void)
     for(int i=0; i< 10; i++)
     {
         int a =0;
-         printf("%c %c", phrases[i][a], phrase[a] );
+        //printf("%c %c", phrases[i][a], phrase[a] );
         while( phrases[i][a] == phrase[a] ) // si les 2 chaines se finissent au même indice on testes termes à termes ça vaut le coup de tester le reste
         {
             if(phrase[a]=='\0')
