@@ -44,7 +44,7 @@ int main(void)
     for(int i=0; i< 10; i++)
     {
         int counter =0;
-
+        printf(" %c",phrases[i][len_recherche]);
         if (phrases[i][len_recherche] == '\0' ) // si les 2 chaines se finissent au même indice on testes termes à termes ça vaut le coup de tester le reste
         {
             for(int a=0; a< len_recherche; a++)
