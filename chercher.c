@@ -6,7 +6,7 @@ int * crea_tab(void);
 void chercher( int *tableau, int terme);
 char * crea_tab_phrases();
 //void cherche_phrase(char *tab, int taille_max_phrase, int nb_phrases, char *phrase);
-char compte( char *p);
+int compte( char *p);
 
 //On définie la taille de notre futur tableau selon notre convenance, ici 100
 
@@ -149,7 +149,7 @@ void cherche_phrase(char *tab, int taille_max_phrase, int nb_phrases, char *phra
 }*/
 
 
-char compte( char *p)
+int compte( char *p)
 {
     int counter = 0;
     int tour = 0;
@@ -167,5 +167,5 @@ char compte( char *p)
             tour = 2;// on sort du while
         }
     }
-    printf("taille %i\n", counter);
+    return counter;
 }
