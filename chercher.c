@@ -21,7 +21,7 @@ int main(void)
     
     //chercher(tableau, 77);
     //char * tableau_c = crea_tab_phrases();
-    char phrase[256] = "Phrase 1";
+    char phrase[256] = "nope";
     int run = 1;
     int len_recherche = compte(phrase);
     //cherche_phrase(tableau_c, compte(phrase), 10, phrase);
