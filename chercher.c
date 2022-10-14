@@ -20,7 +20,7 @@ int main(void)
     }*/
     
     //chercher(tableau, 77);
-    char * tableau_c = crea_tab_phrases();
+    //char * tableau_c = crea_tab_phrases();
     char phrase[256] = "Phrase 1";
     int run = 1;
     int len_recherche = compte(phrase);
@@ -45,11 +45,11 @@ int main(void)
     {
         int counter =0;
 
-        if (tableau_c[i][len_recherche] == '\0' ) // si les 2 chaines se finissent au même indice on testes termes à termes ça vaut le coup de tester le reste
+        if (phrases[i][len_recherche] == '\0' ) // si les 2 chaines se finissent au même indice on testes termes à termes ça vaut le coup de tester le reste
         {
             for(int a=0; a< len_recherche; a++)
             {
-                if(tableau_c[i][a] == phrase[a])
+                if(phrases[i][a] == phrase[a])
                 {
                     counter +=1;
                 }
