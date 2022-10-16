@@ -8,7 +8,7 @@ Année: 2022-2023
 -   Comprendre les fonctions, les fonctions récursives, la manipulation
     du répertoire et les listes.
 
-#### Exercice 4.1 [★]
+#### Exercice 4.1 [★] bon 
 
  
 En réutilisant le code de l'*operators2.c* (TP2), écrivez un programme
@@ -24,7 +24,7 @@ cette fois, si op est égal à '+', le programme doit appeler la fonction
 num2, op.
 
 
-#### Exercice 4.2 [★]
+#### Exercice 4.2 [★] bon 
 
  
 Écrivez un programme en créant deux fichiers *fichier.c* et fichier.h.
@@ -36,7 +36,7 @@ fichier et écrire le message saisi par l'utilisateur dans le fichier.
 Testez ces fonctions en utilisant le fichier principal (*main.c*).
 
 
-#### Exercice 4.3 [★★]
+#### Exercice 4.3 [★★] tester
 
  
 En réutilisant le code de l'*etudiant2.c* (TP2) et *fichier.c*, écrivez
@@ -51,7 +51,7 @@ Dupont, Pierre, Boulevard du 11 novembre 1918, Villeurbanne, 20, 30             
 ```
 
 
-#### Exercice 4.4 [★★]
+#### Exercice 4.4 [★★] tester
 
  
 En réutilisant le code de l'*operator.c* (voir ci-dessus), créer une

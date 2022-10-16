@@ -7,6 +7,16 @@
 #include "etudiant2.h"
 #include <string.h>
 
+typedef struct data
+{
+    char nom[256];
+    char prenom[256];
+    char adresse[256];
+    char ville[256];
+    float note_c;
+    float note_sys;
+}data;
+
 
 char c;
 /*----------------------------------------------------------------*/
@@ -28,6 +38,11 @@ void creat_eleves(data *p, int nb)
 
         printf("Adresse %i :\n ", (i+1));
         scanf("%s",  (p+i)->addresse);
+
+        c = getchar();
+
+        printf("Ville  %i :\n ", (i+1));
+        scanf("%s", ((p+i)->ville)); 
 
         c = getchar();
 
@@ -76,8 +91,6 @@ void save_eleve(data *tableau, char *chemin, int nb)
     {
         char note_1= (char)(tableau+i)->prog_C ;
         char note_2= (char)(tableau+i)->sys_exp; 
-        //itoa((tableau+i)->prog_C, note_1, 10);
-        //itoa((tableau+i)->sys_exp, note_2, 10);
 
         write(file, &( (tableau+i)->nom), 20 );
         write(file, &( (tableau+i)->prenom), 20);
@@ -91,17 +104,17 @@ void save_eleve(data *tableau, char *chemin, int nb)
 
 }
 
-void lire_fichier(char *chemin)
-{ 
-    char data[1000];
+/*----------------------------------------------------------------*/
+void save_eleve_2(data *tableau, char *chemin, int nb_eleves)
+{
+    FILE *fichier = fopen(*chemin, "w+"); //on initialise le pointeur de notre fichier
 
-    int file= open(chemin, O_RDONLY);// on ouvre le fichier 
-    int size = read(file, data, 1000);  // on récupère la taille du fichier, 
-                                    //on le stock ele contenu dans le tableau data
-    for(int i =0; i< size; i++)
+    for(int i=0; i< nb; i++)
     {
-        printf("%c", data[i]);
+        char note_1= (char)(tableau+i)->prog_C ;
+        char note_2= (char)(tableau+i)->sys_exp; 
+        fprints(fichier," %s, %s, %s, %s, %d, %d", *(tableau+i)->nom, *(tableau+i)->prenom, *(tableau+i)->addresse, *(tableau+i)->ville, *(tableau+i)->prog_C, *(tableau+i)->sys_exp) // on ecrit du texte formaté
     }
+    fclose(fichier);
 
-    close(file);
 }
