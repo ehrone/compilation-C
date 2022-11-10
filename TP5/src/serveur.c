@@ -20,9 +20,13 @@
  */
 int renvoie_message(int client_socket_fd, char *data)
 {
-  int data_size = write(client_socket_fd, (void *)data, strlen(data));
+  char message[1024]; // tableua qui va stocket le message 
+  printf(" \n Entrez la réponse du serveur : \n");
+  scanf("%s", message);// on récupère la réponse côté seveur dans message
 
-  if (data_size < 0)
+  int message_size = write(client_socket_fd, (void *)message, strlen(message));
+
+  if (message_size < 0)
   {
     perror("erreur ecriture");
     return (EXIT_FAILURE);
