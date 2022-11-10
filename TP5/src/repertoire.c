@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     //lire_dossier(argv[1]); // exercice 5.1
 
     //lire_dossier_recursif(argv[1], 0); // exercice 5.2
-    //lire_dossier_iteratif(argv[1], 0); // exercice 5.2
+    lire_dossier_iteratif(argv[1], 0); // exercice 5.2
 
 }
 
@@ -116,15 +116,12 @@ void lire_dossier_iteratif(char *chemin, int counter)
     //printf("nivau %d \n", counter);
 
     DIR *dirp = opendir(chemin); // on ouvre le dossier dont le chemin est spécifié en 1er argument dans le terminal.
-   
-    
+ 
     if (dirp==NULL)
     {
         printf("Erreur ouverture du fichier\n ");
         return;
-    
     }
-
 
     struct dirent * ent;// la structure qui permet de récupérer l'entrée des fichiers dans le dossier ouvert
 
@@ -138,8 +135,6 @@ void lire_dossier_iteratif(char *chemin, int counter)
             break;
         } 
         
-        for (int i=0; i< counter; i++){ printf("   ");}
-       
 
         if(ent->d_type==DT_DIR)// si il s'agit d'un dossier
         {
@@ -151,7 +146,8 @@ void lire_dossier_iteratif(char *chemin, int counter)
                 strcat(route, chemin);
                 strcat(route, "/");
                 strcat(route , ent->d_name);
-                //printf(" Route : %s \n",route);
+                
+                lire_dossier(route);
             
             }
                
