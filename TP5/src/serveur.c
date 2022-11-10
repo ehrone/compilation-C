@@ -20,13 +20,9 @@
  */
 int renvoie_message(int client_socket_fd, char *data)
 {
-  char message[1024]; // tableua qui va stocket le message 
-  printf(" \n Entrez la réponse du serveur : \n");
-  scanf("%s", message);// on récupère la réponse côté seveur dans message
+  int data_size = write(client_socket_fd, (void *)data, strlen(data));
 
-  int message_size = write(client_socket_fd, (void *)message, strlen(message));
-
-  if (message_size < 0)
+  if (data_size < 0)
   {
     perror("erreur ecriture");
     return (EXIT_FAILURE);
@@ -76,7 +72,10 @@ int recois_envoie_message(int socketfd)
   // Si le message commence par le mot: 'message:'
   if (strcmp(code, "message:") == 0)
   {
-    renvoie_message(client_socket_fd, data);
+    char message[1024]; // tableau qui stocke la réponse du serveur
+    printf("\n Entrez la réponse du serveur \n");
+    scanf("%s", message);
+    renvoie_message(client_socket_fd, message);
   }
 
   // fermer le socket
