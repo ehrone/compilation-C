@@ -18,6 +18,7 @@
 
 int operateur(char op, int num1, int num2);
 int renvoie_message(int client_socket_fd, char *data);
+int recois_envoi_mesesage(int socketfd);
 
 void recoit_operateur_numeros(int client_socket_fd, char *data)
 {
@@ -146,7 +147,6 @@ int main()
   // Écouter les messages envoyés par le client
   listen(socketfd, 10);
   int i = 0;
-  
 
   // Lire et répondre au client
   recois_envoie_message(socketfd);
