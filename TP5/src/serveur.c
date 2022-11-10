@@ -16,6 +16,47 @@
 
 #include "serveur.h"
 
+int operateur(char op, int num1, int num2);
+int renvoie_message(int client_socket_fd, char *data);
+int recoit_numeros_calcule(int socket);
+int recois_envoie_message(int socketfd);
+
+int recoit_numeros_calcule(int socket)
+{
+  char data[1024];
+  memset(data,0, sizeof(data));
+  // lecture de données envoyées par un client
+  int data_size = read(socket, (void *)data, sizeof(data));
+
+  if (data_size < 0)
+    {
+      perror("erreur lecture");
+      return (EXIT_FAILURE);
+    }
+
+
+  printf("Message recu: %s\n", data);
+  char code[10];
+  sscanf(data, "%s:", code);
+
+  // Si le message commence par le mot: 'message:'
+  if (strcmp(code, "calcule :") == 0)
+    {
+      char op;
+      int num1, num2;
+      sscanf(data, "calcule : %c %i %i", &op, &num1, &num2);// on récupére les parametres de calcul
+
+      char message[1024]; // tableau qui stocke la réponse du serveur
+      memset(message,0, sizeof(message));
+      strcat(message, "calcule : ");
+      char calcul[256];// tableau qui sert à caster l'entier en str
+      sprintf(calcul, "%i", operateur(op, num1, num2) );
+      strcat(message, calcul);
+      renvoie_message(socket, message);
+    }
+
+}
+
 /* renvoyer un message (*data) au client (client_socket_fd)
  */
 int renvoie_message(int client_socket_fd, char *data)
@@ -121,8 +162,63 @@ int main()
   // Écouter les messages envoyés par le client
   listen(socketfd, 10);
 
+  envoie_operateur_numeros(socketfd);
+
   // Lire et répondre au client
   recois_envoie_message(socketfd);
+  
 
   return 0;
+}
+
+
+int operateur(char op, int num1, int num2)
+{
+    switch (op)
+    {
+        case '+':
+            //printf("l'addition de num1 et num2 %d\n", num1+num2);
+            return(num1+num2);
+            break;
+
+        case '-':
+            //printf("la soustraction de num1 et num2 %d\n", num1-num2); 
+            return(num1-num2);
+            break;
+        
+        case '*':
+            //printf("la multiplication de num1 et num2 %d\n", num1*num2);
+            return(num1*num2);
+            break;  
+    
+        case '/':
+            //printf("la division euclidienne de num1 et num2 %d\n", num1/num2);
+            return(num1/num2);
+            break;
+    
+        case '%':
+            //printf("le reste de la division euclidienne de num1 et num2 %d\n", num1%num2);
+            return(num1%num2);
+            break;
+    
+        case '&':
+            //printf( "num1  'et' logique num2 %d\n", num1&&num2);
+            return(num1&&num2);
+            break;
+    
+        case '|':
+            //printf( "num1  'ou' logique num2 %d\n", num1 || num2);
+            return(num1||num2);
+            break;
+    
+        case '~':
+            //printf(" négation binaire num1 %d \n", ~ num1);
+            return(~num1);
+            break;
+        
+        default :
+            printf("erreur operateur");
+
+    
+    }
 }

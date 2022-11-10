@@ -15,6 +15,26 @@
 
 #include "client.h"
 
+void envoie_operateur_numeros(int socket)
+{
+  char data[1024];
+  memset(data, 0, sizeof(data));// on s'assure de vider le tableau de caracteres à transmettre
+  strcat(data, "calcule : ");
+
+  char utilisateur[1004];// chaîne qui va récupérer l'opérateur et les val num
+  printf("Entrez le calcul sous la forme : 'operateur num1 num1");
+  scanf("%s", utilisateur);
+  strcat(data, utilisateur);// le message finalk à transmettre
+
+  int write_status = write(socket, data, strlen(data)); // on envoit sur le socket
+  if (write_status < 0)// gestion des erreurs
+  {
+    perror("erreur ecriture");
+    exit(EXIT_FAILURE);
+  }
+
+}
+
 /*
  * Fonction d'envoi et de réception de messages
  * Il faut un argument : l'identifiant de la socket
@@ -87,6 +107,7 @@ int main()
     exit(EXIT_FAILURE);
   }
 
+  envoie_operateur_numeros(socketfd)
   // appeler la fonction pour envoyer un message au serveur
   envoie_recois_message(socketfd);
 
