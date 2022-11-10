@@ -51,7 +51,7 @@ Dupont, Pierre, Boulevard du 11 novembre 1918, Villeurbanne, 20, 30             
 ```
 
 
-#### Exercice 4.4 [★★] tester
+#### Exercice 4.4 [★★] bon
 
  
 En réutilisant le code de l'*operator.c* (voir ci-dessus), créer une
@@ -65,7 +65,7 @@ l'utilisateur écrit
 Vous devez afficher le produit de ces deux numéros. Testez votre code.
 
 
-#### Exercice 4.5 [★★]
+#### Exercice 4.5 [★★] bon
 
  
 Une fonction récursive est une fonction qui s'appelle elle-même. Par

@@ -119,8 +119,6 @@ int recois_envoie_message(int socketfd)
     renvoie_message(client_socket_fd, message);
   }
 
-  // fermer le socket
-  close(socketfd);
   return (EXIT_SUCCESS);
 }
 
@@ -162,10 +160,11 @@ int main()
   // Écouter les messages envoyés par le client
   listen(socketfd, 10);
 
-  envoie_operateur_numeros(socketfd);
+  recoit_numeros_calcule(socketfd);
 
   // Lire et répondre au client
   recois_envoie_message(socketfd);
+  
   
 
   return 0;

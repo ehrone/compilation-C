@@ -7,7 +7,7 @@ Année: 2022-2023
 
 -   Comprendre la programmation client-serveur.
 
-#### Exercice 5.1 [★]
+#### Exercice 5.1 [★] bon
 
 
 Écrivez un programme en créant deux fichiers *repertoire.h* et
@@ -25,7 +25,7 @@ répertoires, si aucun) dans ce répertoire. Vous pouvez utiliser `opendir`,
 `readdir` pour parcourir un répertoire.
 
 
-#### Exercice 5.2 [★]
+#### Exercice 5.2 [★] bon
 
 
 Ajoutez la déclaration suivante en *repertoire.h*
@@ -47,7 +47,7 @@ sur la ligne de commande. Testez votre code. Utilisez le principe de la
 fonction récursive.
 
 
-#### Exercice 5.3 [★★]
+#### Exercice 5.3 [★★] bon
 
 
 Ajoutez la déclaration suivante en repertoire.h
@@ -63,7 +63,7 @@ dans les sous-répertoires. Mais cette fois, utilisez for (ou while ou
 do..while) pour implémenter cette fonction. Testez votre code.
 
 
-#### Exercice 5.4 [★★]
+#### Exercice 5.4 [★★] bon
 
 ##### Client-Serveur
 
@@ -116,7 +116,7 @@ exécutables).
 
 ![](../images/client-server-message.svg)
 
-#### Exercice 5.5 [★★★]
+#### Exercice 5.5 [★★★] bon (alex)
 
 
 Vous avez remarqué les premiers caractères dans chaque message :
@@ -144,7 +144,7 @@ Testez votre code avec les numéros flottants et entiers.
 
 ![](../images/client-server-calcul.svg)
 
-#### Exercice 5.6 [★★★]
+#### Exercice 5.6 [★★★] A finir !
 
 
 Pour votre dernière question, téléchargez le dossier etudiant. Dans ce
