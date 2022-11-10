@@ -16,6 +16,26 @@
 
 #include "serveur.h"
 
+int operateur(char op, int num1, int num2);
+int renvoie_message(int client_socket_fd, char *data);
+
+void recoit_operateur_numeros(int client_socket_fd, char *data)
+{
+  char op;
+  int note1, note2;
+  printf(" message recu : %s", data);
+  sscanf(data,"calcule: %c %i %i", &op, &note1, &note2); // on récupère les notes à sommer et l'opération à faire
+  char result[256];
+  //printf("resultat calcul %i\n", operateur(op, note1, note2));
+  sprintf(result, "%d", operateur(op, note1, note2));
+  char retour[1024];
+  memset(retour, 0, sizeof(retour));
+  strcat(retour,"calcule: ");
+  strcat(retour, result);
+  printf("calcul par serveur envoyé : %s", retour);
+  renvoie_message(client_socket_fd, retour);
+}
+
 /* renvoyer un message (*data) au client (client_socket_fd)
  */
 int renvoie_message(int client_socket_fd, char *data)
@@ -34,7 +54,7 @@ int renvoie_message(int client_socket_fd, char *data)
  * envoyées par le client. En suite, le serveur envoie un message
  * en retour
  */
-int recois_envoie_message(int socketfd)
+int recois_envoi_mesesage(int socketfd)
 {
   struct sockaddr_in client_addr;
   char data[1024];
@@ -65,21 +85,27 @@ int recois_envoie_message(int socketfd)
    * extraire le code des données envoyées par le client.
    * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
    */
-  printf("Message recu: %s\n", data);
+  printf("Message recu serveur: %s\n", data);
   char code[10];
   sscanf(data, "%s:", code);
-
+  printf("%s", code);
+  
   // Si le message commence par le mot: 'message:'
   if (strcmp(code, "message:") == 0)
-  {
-    char message[1024]; // tableau qui stocke la réponse du serveur
-    printf("\n Entrez la réponse du serveur \n");
-    scanf("%s", message);
-    renvoie_message(client_socket_fd, message);
-  }
-
+    {
+      char message[1024]; // tableau qui stocke la réponse du serveur
+      printf("Entrez la réponse du serveur :");
+      scanf("%s", message);
+      renvoie_message(client_socket_fd, message);
+    }
+  else if( strcmp(code, "calcule:")==0) // si le client demandes un calcul
+    {
+      recoit_operateur_numeros(client_socket_fd, data);
+    }
+    
   // fermer le socket
   close(socketfd);
+ 
   return (EXIT_SUCCESS);
 }
 
@@ -117,12 +143,64 @@ int main()
     perror("bind");
     return (EXIT_FAILURE);
   }
-
   // Écouter les messages envoyés par le client
   listen(socketfd, 10);
+  int i = 0;
+  
 
   // Lire et répondre au client
   recois_envoie_message(socketfd);
 
   return 0;
+}
+
+
+int operateur(char op, int num1, int num2) // fonction qui sert à l'exercie 4.1
+{
+    switch (op)
+    {
+        case '+':
+            //printf("l'addition de num1 et num2 %d\n", num1+num2);
+            return ((int) num1+num2);
+            break;
+
+        case '-':
+            //printf("la soustraction de num1 et num2 %d\n", num1-num2); 
+            return ((int) num1-num2);
+            break;
+        
+        case '*':
+            //printf("la multiplication de num1 et num2 %d\n", num1*num2);
+            return ((int) num1*num2);
+            break;  
+    
+        case '/':
+            //printf("la division euclidienne de num1 et num2 %d\n", num1/num2);
+            return ((int) num1/num2);
+            break;
+    
+        case '%':
+            //printf("le reste de la division euclidienne de num1 et num2 %d\n", num1%num2);
+            return ((int) num1%num2);
+            break;
+    
+        case '&':
+            //printf( "num1  'et' logique num2 %d\n", num1&&num2);
+            return ((int) num1&&num2);
+            break;
+    
+        case '|':
+            //printf( "num1  'ou' logique num2 %d\n", num1 || num2);
+            return ((int) num1||num2);
+            break;
+    
+        case '~':
+            //printf(" négation binaire num1 %d \n", ~ num1);
+            return ((int) ~ num1);
+            break;
+        
+        default :
+                printf(" opérateur non reconnu !\n");
+                return(0);
+    }
 }

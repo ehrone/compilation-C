@@ -15,6 +15,26 @@
 
 #include "client.h"
 
+void envoie_operateur_numeros(int socket)
+{
+  printf("\nEntrer le calcul sous forme, op int1 int2\n");
+  char data[1024];
+  memset(data, 0, sizeof(data));
+  strcpy(data, "calcule: ");
+  char message[1024];
+  fgets(message, sizeof(message), stdin);
+  strcat(data, message);
+  int write_status = write(socket, data, strlen(data));
+  printf("envoyé : %s", data);
+  if (write_status < 0)
+  {
+    perror("erreur ecriture");
+    exit(EXIT_FAILURE);
+  }
+
+}
+
+
 /*
  * Fonction d'envoi et de réception de messages
  * Il faut un argument : l'identifiant de la socket
@@ -22,16 +42,15 @@
 
 int envoie_recois_message(int socketfd)
 {
-
   char data[1024];
   // la réinitialisation de l'ensemble des données
   memset(data, 0, sizeof(data));
-
-  // Demandez à l'utilisateur d'entrer un message
+  
+  // Demandez à l'utilisateur d'entrer le message
   char message[1024];
-  printf("Votre message (max 1000 caracteres): ");
+  printf("Votre message (max 1000 caracteres, commence par 'message: ' ou 'calcule: ') :  ");
   fgets(message, sizeof(message), stdin);
-  strcpy(data, "message: ");
+  //strcpy(data, "message : ");
   strcat(data, message);
 
   int write_status = write(socketfd, data, strlen(data));
@@ -41,18 +60,21 @@ int envoie_recois_message(int socketfd)
     exit(EXIT_FAILURE);
   }
 
+
   // la réinitialisation de l'ensemble des données
   memset(data, 0, sizeof(data));
 
   // lire les données de la socket
   int read_status = read(socketfd, data, sizeof(data));
   if (read_status < 0)
-  {
-    perror("erreur lecture");
-    return -1;
-  }
+    {
+      perror("erreur lecture");
+      return -1;
+    }
 
   printf("Message recu: %s\n", data);
+  envoie_operateur_numeros(socketfd);
+  
 
   return 0;
 }
@@ -86,8 +108,11 @@ int main()
     perror("connection serveur");
     exit(EXIT_FAILURE);
   }
+ 
 
   // appeler la fonction pour envoyer un message au serveur
+  //envoie_recois_message(socketfd);
+ 
   envoie_recois_message(socketfd);
 
   close(socketfd);
