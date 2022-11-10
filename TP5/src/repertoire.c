@@ -147,7 +147,7 @@ void lire_dossier_iteratif(char *chemin, int counter)
                 strcat(route, "/");
                 strcat(route , ent->d_name);
                 
-                lire_dossier(route);
+                lire_dossier(route);// on ouvre le dossier
             
             }
                
