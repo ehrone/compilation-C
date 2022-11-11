@@ -5,7 +5,7 @@
 int main()
 {
     lire_fichier("test.txt");
-    ecrire_fichier("test.txt", " bonjour 2", 8);
+    ecrire_fichier("test.txt", " bonjour 2");
     //printf(" apres ecriture\n");
     lire_fichier("test.txt");
 }

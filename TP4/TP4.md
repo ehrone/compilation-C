@@ -87,7 +87,7 @@ int factorielle (int num) {
 différents entiers naturels.
 
 
-#### Exercice 4.6 [★★★]
+#### Exercice 4.6 [★★★] à tester
 
  
 En réutilisant le code de *chercher.c* (TP3) et *fichier.c*, écrivez un
