@@ -89,8 +89,8 @@ int recois_envoie_message(int socketfd)
 }
 
 /* récupere les valeurs calculées par le serveur 
-entrée :
-    int socketfd : le socket de communication entre le client et le serveur
+ * entrée :
+ *   int socketfd : le socket de communication entre le client et le serveur
  */
 int recois_numeros_calcule(int socketfd)
 {
