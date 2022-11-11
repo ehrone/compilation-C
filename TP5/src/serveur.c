@@ -16,59 +16,18 @@
 
 #include "serveur.h"
 
-int operateur(char op, int num1, int num2);
-int renvoie_message(int client_socket_fd, char *data);
-int recoit_numeros_calcule(int socket);
-int recois_envoie_message(int socketfd);
-
-int recoit_numeros_calcule(int socket)
-{
-  char data[1024];
-  memset(data,0, sizeof(data));
-  // lecture de données envoyées par un client
-  int data_size = read(socket, (void *)data, sizeof(data));
-
-  if (data_size < 0)
-    {
-      perror("erreur lecture");
-      return (EXIT_FAILURE);
-    }
-
-
-  printf("Message recu: %s\n", data);
-  char code[10];
-  sscanf(data, "%s:", code);
-
-  // Si le message commence par le mot: 'message:'
-  if (strcmp(code, "calcule :") == 0)
-    {
-      char op;
-      int num1, num2;
-      sscanf(data, "calcule : %c %i %i", &op, &num1, &num2);// on récupére les parametres de calcul
-
-      char message[1024]; // tableau qui stocke la réponse du serveur
-      memset(message,0, sizeof(message));
-      strcat(message, "calcule : ");
-      char calcul[256];// tableau qui sert à caster l'entier en str
-      sprintf(calcul, "%i", operateur(op, num1, num2) );
-      strcat(message, calcul);
-      renvoie_message(socket, message);
-    }
-
-}
-
 /* renvoyer un message (*data) au client (client_socket_fd)
  */
 int renvoie_message(int client_socket_fd, char *data)
 {
-  int data_size = write(client_socket_fd, (void *)data, strlen(data));
+    int data_size = write(client_socket_fd, (void *)data, strlen(data));
 
-  if (data_size < 0)
-  {
-    perror("erreur ecriture");
-    return (EXIT_FAILURE);
-  }
-  return (EXIT_SUCCESS);
+    if (data_size < 0)
+    {
+        perror("erreur ecriture");
+        return (EXIT_FAILURE);
+    }
+    return (EXIT_SUCCESS);
 }
 
 /* accepter la nouvelle connection d'un client et lire les données
@@ -77,147 +36,222 @@ int renvoie_message(int client_socket_fd, char *data)
  */
 int recois_envoie_message(int socketfd)
 {
-  struct sockaddr_in client_addr;
-  char data[1024];
+    struct sockaddr_in client_addr;
+    char data[1024];
 
-  unsigned int client_addr_len = sizeof(client_addr);
+    unsigned int client_addr_len = sizeof(client_addr);
 
-  // nouvelle connection de client
-  int client_socket_fd = accept(socketfd, (struct sockaddr *)&client_addr, &client_addr_len);
-  if (client_socket_fd < 0)
-  {
-    perror("accept");
-    return (EXIT_FAILURE);
-  }
+    // nouvelle connection de client
+    int client_socket_fd = accept(socketfd, (struct sockaddr *)&client_addr, &client_addr_len);
+    if (client_socket_fd < 0)
+    {
+        perror("accept");
+        return (EXIT_FAILURE);
+    }
 
-  // la réinitialisation de l'ensemble des données
-  memset(data, 0, sizeof(data));
+    // la réinitialisation de l'ensemble des données
+    memset(data, 0, sizeof(data));
 
-  // lecture de données envoyées par un client
-  int data_size = read(client_socket_fd, (void *)data, sizeof(data));
+    // lecture de données envoyées par un client
+    int data_size = read(client_socket_fd, (void *)data, sizeof(data));
 
-  if (data_size < 0)
-  {
+    if (data_size < 0)
+    {
     perror("erreur lecture");
     return (EXIT_FAILURE);
-  }
+    }
 
-  /*
-   * extraire le code des données envoyées par le client.
-   * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
-   */
-  printf("Message recu: %s\n", data);
-  char code[10];
-  sscanf(data, "%s:", code);
+    /*
+    * extraire le code des données envoyées par le client.
+    * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
+    */
+    printf("Message recu: %s\n", data);
+    char code[10];
+    sscanf(data, "%s:", code);
 
-  // Si le message commence par le mot: 'message:'
-  if (strcmp(code, "message:") == 0)
-  {
-    char message[1024]; // tableau qui stocke la réponse du serveur
-    printf("\n Entrez la réponse du serveur \n");
-    scanf("%s", message);
-    renvoie_message(client_socket_fd, message);
-  }
 
-  return (EXIT_SUCCESS);
+    // Si le message commence par le mot: 'message:'
+    if (strcmp(code, "message:") == 0)
+    {
+            // Demandez à l'utilisateur d'entrer un message
+        char message[1024];
+        printf("Votre message (max 1000 caracteres): ");
+        fgets(message, sizeof(message), stdin);
+        strcpy(data, "message: ");
+        strcat(data, message);
+
+        renvoie_message(client_socket_fd, data);
+        }
+
+  // fermer le socket
+    close(socketfd);
+    return (EXIT_SUCCESS);
+}
+
+int recois_numeros_calcule(int socketfd)
+{
+    struct sockaddr_in client_addr;
+    char data[1024];
+
+    unsigned int client_addr_len = sizeof(client_addr);
+
+    // nouvelle connection de client
+    int client_socket_fd = accept(socketfd, (struct sockaddr *)&client_addr, &client_addr_len);
+    if (client_socket_fd < 0)
+    {
+        perror("accept");
+        return (EXIT_FAILURE);
+    }
+
+    // la réinitialisation de l'ensemble des données
+    memset(data, 0, sizeof(data));
+
+    // lecture de données envoyées par un client
+    int data_size = read(client_socket_fd, (void *)data, sizeof(data));
+
+    if (data_size < 0)
+    {
+    perror("erreur lecture");
+    return (EXIT_FAILURE);
+    }
+
+    /*
+    * extraire le code des données envoyées par le client.
+    * Les données envoyées par le client peuvent commencer par le mot "message :" ou un autre mot.
+    */
+    
+    printf("Calcule reçu: %s\n", data);
+
+    int init_size = strlen(data);
+    char delim[] = " ";
+    char *ptr = strtok(data, delim);
+    char op ;
+    int num1 = 0;
+
+    int num2 = 0;
+    //scanf(data, "calcule: %c %d %d", &op, &num1, &num2);
+
+
+    // Si le message commence par le mot: 'calcule:'
+    char calcule[1024];
+    int resul = 0;
+    //ptr = strtok(NULL, delim);
+    int counter = 1;
+    while (counter != 5)
+    {
+        if(counter ==2)
+        {
+            op = *ptr;
+            printf("op : %c\n", op);
+        }
+        
+        else if (counter ==3)
+        {
+            num1 = atoi(ptr);
+            printf("num1 : %d\n", num1);
+        }
+
+        else if (counter ==4)
+        {
+            num2 = atoi(ptr);
+            printf("num2 : %d\n", num2);
+        }
+        counter ++;
+        ptr = strtok(NULL, delim);
+    }
+
+    if (strcmp(data, "calcule:") == 0)
+    {
+
+        switch (op)
+        {
+            case '+':
+                resul = num1+num2;
+                break;
+
+            case '-':
+                resul = num1-num2; 
+                break;
+            
+            case '*':
+                resul = num1*num2;
+                break;  
+
+            case '/':
+                resul = num1/num2;
+                break;
+
+            case '%':
+                resul = num1%num2;
+                break;
+
+            case '&':
+                resul = num1&&num2;
+                break;
+
+            case '|':
+                resul = num1||num2;
+                break;
+
+            case '~':
+                resul = ~num1;
+        }
+        printf("resul %d, num1 %d, num2 %d\n", resul, num1, num2);
+
+        memset(data, 0, sizeof(calcule));
+        snprintf(calcule, sizeof(calcule), "%d",resul);
+    
+        renvoie_message(client_socket_fd, calcule);
+    }
+    
+    // fermer le socket
+    close(socketfd);
+    return (EXIT_SUCCESS);
 }
 
 int main()
 {
 
-  int socketfd;
-  int bind_status;
+    int socketfd;
+    int bind_status;
 
-  struct sockaddr_in server_addr;
+    struct sockaddr_in server_addr;
 
-  /*
-   * Creation d'une socket
-   */
-  socketfd = socket(AF_INET, SOCK_STREAM, 0);
-  if (socketfd < 0)
-  {
-    perror("Unable to open a socket");
-    return -1;
-  }
-
-  int option = 1;
-  setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
-
-  // détails du serveur (adresse et port)
-  memset(&server_addr, 0, sizeof(server_addr));
-  server_addr.sin_family = AF_INET;
-  server_addr.sin_port = htons(PORT);
-  server_addr.sin_addr.s_addr = INADDR_ANY;
-
-  // Relier l'adresse à la socket
-  bind_status = bind(socketfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
-  if (bind_status < 0)
-  {
-    perror("bind");
-    return (EXIT_FAILURE);
-  }
-
-  // Écouter les messages envoyés par le client
-  listen(socketfd, 10);
-
-  recoit_numeros_calcule(socketfd);
-
-  // Lire et répondre au client
-  recois_envoie_message(socketfd);
-  
-  
-
-  return 0;
-}
-
-
-int operateur(char op, int num1, int num2)
-{
-    switch (op)
+    /*
+    * Creation d'une socket
+    */
+    socketfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (socketfd < 0)
     {
-        case '+':
-            //printf("l'addition de num1 et num2 %d\n", num1+num2);
-            return(num1+num2);
-            break;
-
-        case '-':
-            //printf("la soustraction de num1 et num2 %d\n", num1-num2); 
-            return(num1-num2);
-            break;
-        
-        case '*':
-            //printf("la multiplication de num1 et num2 %d\n", num1*num2);
-            return(num1*num2);
-            break;  
-    
-        case '/':
-            //printf("la division euclidienne de num1 et num2 %d\n", num1/num2);
-            return(num1/num2);
-            break;
-    
-        case '%':
-            //printf("le reste de la division euclidienne de num1 et num2 %d\n", num1%num2);
-            return(num1%num2);
-            break;
-    
-        case '&':
-            //printf( "num1  'et' logique num2 %d\n", num1&&num2);
-            return(num1&&num2);
-            break;
-    
-        case '|':
-            //printf( "num1  'ou' logique num2 %d\n", num1 || num2);
-            return(num1||num2);
-            break;
-    
-        case '~':
-            //printf(" négation binaire num1 %d \n", ~ num1);
-            return(~num1);
-            break;
-        
-        default :
-            printf("erreur operateur");
-
-    
+        perror("Unable to open a socket");
+        return -1;
     }
+
+    int option = 1;
+    setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
+
+    // détails du serveur (adresse et port)
+    memset(&server_addr, 0, sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(PORT);
+    server_addr.sin_addr.s_addr = INADDR_ANY;
+
+    // Relier l'adresse à la socket
+    bind_status = bind(socketfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+    if (bind_status < 0)
+    {
+        perror("bind");
+        return (EXIT_FAILURE);
+    }
+
+    // Écouter les messages envoyés par le client
+    while (1 == 1)
+    {
+        listen(socketfd, 10);
+        // Lire et répondre au client
+        recois_envoie_message(socketfd);
+        recois_numeros_calcule(socketfd);
+    }
+    
+    return 0;
 }
