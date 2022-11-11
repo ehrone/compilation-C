@@ -88,6 +88,10 @@ int recois_envoie_message(int socketfd)
     return (EXIT_SUCCESS);
 }
 
+/* récupere les valeurs calculées par le serveur 
+entrée :
+    int socketfd : le socket de communication entre le client et le serveur
+ */
 int recois_numeros_calcule(int socketfd)
 {
     struct sockaddr_in client_addr;
