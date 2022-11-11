@@ -58,7 +58,7 @@ int chercher(char * line_file, char * phrase, int *present)
         if (compteur == strlen(phrase))// si on a trouvé la chaine recherchée complete dans la ligne du fichier on arrête 
         {
             printf("chaine trouvée dans le fichier");
-            (*present)++;// on incréùente de 1 la présence de la phrase dans la ligne di fichier
+            (*present)++;// on incrémente de 1 la présence de la phrase dans la ligne di fichier
         }
         else if ( *(line_file+i) == *(phrase+compteur)  )// si on a un caractere de la chaine recherchée dans la ligne du fichier on teste si le suivant cotrrespond au suivant recherché
         {
@@ -108,5 +108,4 @@ int chercherfichier(char *chemin, char *to_find)
     close(file);
     return(0);
     
-
 }

@@ -36,7 +36,7 @@ fichier et écrire le message saisi par l'utilisateur dans le fichier.
 Testez ces fonctions en utilisant le fichier principal (*main.c*).
 
 
-#### Exercice 4.3 [★★] tester
+#### Exercice 4.3 [★★] bon
 
  
 En réutilisant le code de l'*etudiant2.c* (TP2) et *fichier.c*, écrivez
