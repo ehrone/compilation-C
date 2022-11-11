@@ -57,12 +57,13 @@ int envoie_recois_message(int socketfd)
     return 0;
 }
 
+/* Cette fonction transmet un calcul au serveur via le socket en parametre
+ *  entrée :
+ *     int socket : le socket de communication en tre le serveur et le client
+ */
 int envoie_operateur_numero(int socketfd)
 {
-    /* Cette fonction transmet un calcul au serveur via le socket en parametre
-    entrée :
-        int socket : le socket de communication en tre le serveur et le client
-     */
+    
     char data[1024];
     // la réinitialisation de l'ensemble des données
     memset(data, 0, sizeof(data));
